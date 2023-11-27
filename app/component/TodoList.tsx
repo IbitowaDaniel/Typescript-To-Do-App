@@ -1,8 +1,30 @@
+"use client"
 
-const TodoList = () => {
+import { TodoItem } from "."
+import { useTodo } from "../context"
+import { SiStarship } from 'react-icons/si'
+
+
+export const TodoList = () => {
+  const { todos } = useTodo()
+
+  if (!todos.length) {
+    return (
+      <div className="max-w-lg px-5 m-auto">
+        <h1 className="flex flex-col items-center gap-5 px-5 py-10 text-xl font-bold text-center rounded-xl bg-zinc-900 bg-opacity-50">
+          <SiStarship className="text-5xl" />
+          You have nothing to do!
+        </h1>
+      </div>
+    )
+  }
+
   return (
-    <div>TodoList</div>
+    <div className="grid max-w-lg gap-2 px-5 m-auto">
+      {todos.map(todo => (
+        <TodoItem todo={todo} key={todo.id} />
+      ))}
+    </div>
   )
 }
 
-export default TodoList
